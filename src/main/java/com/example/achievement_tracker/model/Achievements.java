@@ -29,11 +29,15 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity(name = "achievements")
 @Table(name = "ACHIEVEMENTS")
+@Getter
+@Setter
 public class Achievements {
 
     @Id
@@ -67,63 +71,5 @@ public class Achievements {
     @Column(nullable = false)
     @NotNull private StatusEnum status;
 
-    public Achievements() {
-
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getDateStarted() {
-        return dateStarted;
-    }
-
-    public void setDateStarted(Date dateStarted) {
-        this.dateStarted = dateStarted;
-    }
-
-    public Date getDateCompleted() {
-        return dateCompleted;
-    }
-
-    public void setDateCompleted(Date dateCompleted) {
-        this.dateCompleted = dateCompleted;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
-    public StatusEnum getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusEnum status) {
-        this.status = status;
-    }
+    public Achievements() {}
 }
