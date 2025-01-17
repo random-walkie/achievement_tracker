@@ -17,12 +17,23 @@ package com.example.achievement_tracker.model;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
+
+import jakarta.validation.Validator;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-class AchievementsTest {
-
+@ExtendWith(SpringExtension.class)
+@DataJpaTest
+public class AchievementsTest {
+    private static Validator validator;
+    private static final Long id = 10239482L;
+    private static final String title = "First API";
+    private static final String description = "First API description";
     private Achievements achievements;
 
     @BeforeEach
@@ -33,7 +44,11 @@ class AchievementsTest {
     @Test
     @DisplayName("Correct Instantiation of an Achievements object.")
     void correctInstantiationOfAchievementsObject() {
-
         assertInstanceOf(Achievements.class, achievements);
     }
+
+    @Test
+    @DisplayName("Should not allow to persist null achievements title.")
+    void shouldNotAllowToPersistNullTitle() {
+      }
 }
