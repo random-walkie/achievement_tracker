@@ -15,30 +15,32 @@
  */
 package com.example.achievement_tracker.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
-import jakarta.validation.Validator;
-
+import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
 public class AchievementsTest {
-    private static Validator validator;
-    private static final Long id = 10239482L;
-    private static final String title = "First API";
-    private static final String description = "First API description";
     private Achievements achievements;
+    private final Long id = 134L;
+    private final String title = "This is a Title";
+    private final Date dateStarted = new Date();
+    private final StatusEnum status = StatusEnum.COMPLETED;
 
     @BeforeEach
     void setUp() {
-        achievements = new Achievements();
+        achievements =
+                Achievements.builder()
+                        .id(id)
+                        .title(title)
+                        .dateStarted(dateStarted)
+                        .status(status)
+                        .build();
     }
 
     @Test
@@ -48,7 +50,82 @@ public class AchievementsTest {
     }
 
     @Test
-    @DisplayName("Should not allow to persist null achievements title.")
-    void shouldNotAllowToPersistNullTitle() {
-      }
+    @DisplayName("Check `id` field is required.")
+    void checkIdFieldIsRequired() {
+        NullPointerException exception =
+                assertThrows(
+                        NullPointerException.class,
+                        () ->
+                                Achievements.builder()
+                                        .title(title)
+                                        .dateStarted(dateStarted)
+                                        .status(status)
+                                        .build());
+        assertEquals("id is marked non-null but is null", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Check `title` field is required.")
+    void checkTitleFieldIsRequired() {
+        NullPointerException exception =
+                assertThrows(
+                        NullPointerException.class,
+                        () ->
+                                Achievements.builder()
+                                        .id(id)
+                                        .dateStarted(dateStarted)
+                                        .status(status)
+                                        .build());
+
+        assertEquals("title is marked non-null but is null", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Check `dateStarted` field is required.")
+    void checkDateStartedFieldIsRequired() {
+        NullPointerException exception =
+                assertThrows(
+                        NullPointerException.class,
+                        () -> Achievements.builder().id(id).title(title).status(status).build());
+
+        assertEquals("dateStarted is marked non-null but is null", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Check `status` field is required.")
+    void checkStatusFieldIsRequired() {
+        NullPointerException exception =
+                assertThrows(
+                        NullPointerException.class,
+                        () ->
+                                Achievements.builder()
+                                        .id(id)
+                                        .dateStarted(dateStarted)
+                                        .title(title)
+                                        .build());
+
+        assertEquals("status is marked non-null but is null", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Check default value for optional `description` field.")
+    void checkDefaultValueForDescriptionField() {
+        assertEquals("This is a generic achievement.", achievements.getDescription());
+    }
+
+    @Test
+    @DisplayName("Check default value for optional `dateCompleted` field.")
+    void checkDefaultValueForDateCompletedField() {
+        // TODO: I am wondering if this is the best way to test this?...
+        // when
+        String expectedDate = new Date().toString();
+        // then
+        assertEquals(expectedDate, achievements.getDateCompleted().toString());
+    }
+
+    @Test
+    @DisplayName("Check default value for optional `tags` field.")
+    void checkDefaultValueForTagsField() {
+        assertTrue(achievements.getTags().isEmpty());
+    }
 }

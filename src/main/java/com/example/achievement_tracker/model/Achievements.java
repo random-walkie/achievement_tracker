@@ -23,53 +23,61 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity(name = "achievements")
-@Table(name = "ACHIEVEMENTS")
-@Getter
-@Setter
+@Entity
+@Data
+@Builder
+@NoArgsConstructor(force = true) // required by lombok to add force = true
+@AllArgsConstructor
 public class Achievements {
 
+    // required field
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    @NotNull private Long id;
+    private final Long id;
 
+    // required field
     @Column(columnDefinition = "varchar(50)", nullable = false, unique = true)
-    @NotNull private String title;
+    @Length(max = 50) @NonNull private final String title;
 
-    @Column(
-            columnDefinition = "varchar(255) default 'This is a generic achievement.'",
-            nullable = false)
-    @Length(max = 255) @NotNull private String description;
+    @Column(columnDefinition = "default 'This is a generic achievement.'", nullable = false)
+    @Builder.Default
+    private String description = "This is a generic achievement.";
+
+    // required field
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    @NonNull private final Date dateStarted;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    @NotNull private Date dateStarted;
-
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
-    @NotNull private Date dateCompleted;
+    @Builder.Default
+    private Date dateCompleted = new Date();
 
     @ElementCollection
-    @Column(columnDefinition = "varchar(255) default 'general'", nullable = false)
-    @NotNull private List<String> tags;
+    @Column(nullable = false)
+    @Builder.Default
+    private List<String> tags = new ArrayList<>();
 
+    // required field
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @NotNull private StatusEnum status;
+    @NonNull private final StatusEnum status;
 
-    public Achievements() {}
 }
