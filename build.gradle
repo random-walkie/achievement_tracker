@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.run.BootRun
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.1'
@@ -18,12 +20,30 @@ repositories {
 	mavenCentral()
 }
 
+// This configuration enables us to define dependencies that are specific only to our local environment.
+configurations {
+	localH2Implementation.extendsFrom implementation
+	localH2RuntimeOnly.extendsFrom runtimeOnly
+}
+
+sourceSets {
+	localH2 {
+		compileClasspath += sourceSets.main.output
+		runtimeClasspath += sourceSets.main.output
+	}
+}
+
+// In localH2 source set, the PostgreSQL driver included.
+// To remove that dependency, use this block of code:
+configurations.localH2Implementation {
+	exclude group: 'org.postgresql', module: 'postgresql'
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -31,6 +51,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.36'
 	testCompileOnly 'org.projectlombok:lombok:1.18.36'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
+
+	localH2RuntimeOnly 'com.h2database:h2'
 }
 
 spotless {
@@ -59,6 +81,12 @@ spotless {
 		licenseHeaderFile 'spotless.license.java'
 	}
 }
+
+tasks.register('localH2', BootRun) {
+	mainClass = "com.example.achievement_tracker.AchievementTrackerApplication"
+	classpath = sourceSets.localH2.runtimeClasspath
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
