@@ -26,8 +26,6 @@ import jakarta.persistence.Id;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -46,13 +44,13 @@ public class Achievement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    @NonNull private final Long id;
+    private Long id;
 
     // required field
-    @Column(columnDefinition = "varchar(50)", nullable = false, unique = true)
-    @Length(max = 50) @NonNull private final String title;
+    @Column(nullable = false, unique = true)
+    @Length(max = 50) @NonNull private String title;
 
-    @Column(columnDefinition = "default 'This is a generic achievement.'", nullable = false)
+    @Column(nullable = false)
     @Builder.Default
     private String description = "This is a generic achievement.";
 
@@ -65,12 +63,11 @@ public class Achievement {
     private LocalDate dateCompleted = LocalDate.now();
 
     @ElementCollection
-    @Column(nullable = false)
     @Builder.Default
     private List<String> tags = new ArrayList<>();
 
     // required field
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @NonNull private final StatusEnum status;
+    @NonNull private StatusEnum status;
 }

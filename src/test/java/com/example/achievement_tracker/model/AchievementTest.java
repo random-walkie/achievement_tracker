@@ -67,20 +67,6 @@ public class AchievementTest {
     }
 
     @Test
-    @DisplayName("`id` field is required.")
-    void checkIdFieldIsRequired() {
-        NullPointerException exception =
-                assertThrows(
-                        NullPointerException.class,
-                        () ->
-                                com.example.achievement_tracker.model.Achievement.builder()
-                                        .title(title)
-                                        .status(status)
-                                        .build());
-        assertEquals("id is marked non-null but is null", exception.getMessage());
-    }
-
-    @Test
     @DisplayName("`title` field is required.")
     void checkTitleFieldIsRequired() {
         NullPointerException exception =
