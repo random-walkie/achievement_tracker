@@ -26,6 +26,8 @@ import jakarta.persistence.Id;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,7 +40,7 @@ import org.hibernate.validator.constraints.Length;
 @Builder
 @NoArgsConstructor(force = true) // required by lombok to add force = true
 @AllArgsConstructor
-public class Achievements {
+public class Achievement {
 
     // required field
     @Id
