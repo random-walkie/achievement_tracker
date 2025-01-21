@@ -23,11 +23,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,7 +32,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Data
@@ -48,7 +44,7 @@ public class Achievements {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private final Long id;
+    @NonNull private final Long id;
 
     // required field
     @Column(columnDefinition = "varchar(50)", nullable = false, unique = true)
@@ -58,17 +54,13 @@ public class Achievements {
     @Builder.Default
     private String description = "This is a generic achievement.";
 
-    // required field
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
-    @NonNull private final Date dateStarted;
-
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     @Builder.Default
-    private Date dateCompleted = new Date();
+    private LocalDate dateStarted = LocalDate.now();
+
+    @Column(nullable = false)
+    @Builder.Default
+    private LocalDate dateCompleted = LocalDate.now();
 
     @ElementCollection
     @Column(nullable = false)
@@ -79,5 +71,4 @@ public class Achievements {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @NonNull private final StatusEnum status;
-
 }
