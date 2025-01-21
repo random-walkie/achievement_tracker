@@ -15,25 +15,105 @@
  */
 package com.example.achievement_tracker.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class AchievementsTest {
-
+public class AchievementsTest {
     private Achievements achievements;
+    private final Long id = 134L;
+    private final String title = "This is a Title";
+    private final StatusEnum status = StatusEnum.COMPLETED;
+    private final LocalDate expectedDate = LocalDate.of(2025, 1, 21);
 
     @BeforeEach
     void setUp() {
-        achievements = new Achievements();
+        achievements = Achievements.builder().id(id).title(title).status(status).build();
     }
 
     @Test
     @DisplayName("Correct Instantiation of an Achievements object.")
     void correctInstantiationOfAchievementsObject() {
-
         assertInstanceOf(Achievements.class, achievements);
+    }
+
+    @Test
+    @DisplayName("`id` is built correctly.")
+    void idIsBuiltCorrectly() {
+        assertEquals(id, achievements.getId());
+    }
+
+    @Test
+    @DisplayName("`title` is built correctly.")
+    void titleIsBuiltCorrectly() {
+        assertEquals(title, achievements.getTitle());
+    }
+
+    @Test
+    @DisplayName("`status` is built correctly.")
+    void statusIsBuiltCorrectly() {
+        assertEquals(status, achievements.getStatus());
+    }
+
+    @Test
+    @DisplayName("`id` field is required.")
+    void checkIdFieldIsRequired() {
+        NullPointerException exception =
+                assertThrows(
+                        NullPointerException.class,
+                        () -> Achievements.builder().title(title).status(status).build());
+        assertEquals("id is marked non-null but is null", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("`title` field is required.")
+    void checkTitleFieldIsRequired() {
+        NullPointerException exception =
+                assertThrows(
+                        NullPointerException.class,
+                        () -> Achievements.builder().id(id).status(status).build());
+
+        assertEquals("title is marked non-null but is null", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("`status` field is required.")
+    void checkStatusFieldIsRequired() {
+        NullPointerException exception =
+                assertThrows(
+                        NullPointerException.class,
+                        () -> Achievements.builder().id(id).title(title).build());
+
+        assertEquals("status is marked non-null but is null", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Default value for optional `description` field.")
+    void checkDefaultValueForDescriptionField() {
+        assertEquals("This is a generic achievement.", achievements.getDescription());
+    }
+
+    @Test
+    @DisplayName("Default value for optional `dateStarted` field.")
+    void checkDefaultValueForDateStartedField() {
+        assertEquals(expectedDate, achievements.getDateStarted());
+    }
+
+    @Test
+    @DisplayName("Default value for optional `dateCompleted` field.")
+    void checkDefaultValueForDateCompletedField() {
+        assertEquals(expectedDate, achievements.getDateCompleted());
+    }
+
+    @Test
+    @DisplayName("Default value for optional `tags` field.")
+    void checkDefaultValueForTagsField() {
+        assertTrue(achievements.getTags().isEmpty());
     }
 }
