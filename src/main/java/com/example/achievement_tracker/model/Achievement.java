@@ -23,11 +23,11 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -51,7 +51,7 @@ public class Achievement {
 
     // required field
     @Column(nullable = false, unique = true)
-    @Length(max = 50) @NonNull private String title;
+    @NotEmpty(message = "Title cannot be empty.") @Length(max = 50, message = "Title length exceeds the allowed limit.") @NonNull private String title;
 
     @Column(nullable = false)
     @Builder.Default
@@ -65,9 +65,7 @@ public class Achievement {
     @Builder.Default
     private LocalDate dateCompleted = LocalDate.now();
 
-    @ElementCollection
-    @Builder.Default
-    private List<String> tags = new ArrayList<>();
+    @ElementCollection @Builder.Default private List<String> tags = new ArrayList<>();
 
     // required field
     @Enumerated(EnumType.STRING)
