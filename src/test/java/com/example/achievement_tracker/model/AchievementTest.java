@@ -30,93 +30,99 @@ public class AchievementTest {
     private final Long id = 134L;
     private final String title = "This is a Title";
     private final StatusEnum status = StatusEnum.COMPLETED;
-    private final LocalDate expectedDate = LocalDate.of(2025, 1, 21);
 
     @BeforeEach
     void setUp() {
-        achievement =
-                com.example.achievement_tracker.model.Achievement.builder()
-                        .id(id)
-                        .title(title)
-                        .status(status)
-                        .build();
+        achievement = Achievement.builder().id(id).title(title).status(status).build();
     }
 
     @Test
-    @DisplayName("Correct Instantiation of an Achievement object.")
+    @DisplayName(
+            "Given a valid builder, when instantiating an achievement, then it should be an"
+                    + " instance of the Achievement class.")
     void correctInstantiationOfAchievementsObject() {
         assertInstanceOf(Achievement.class, achievement);
     }
 
     @Test
-    @DisplayName("`id` is built correctly.")
+    @DisplayName(
+            "Given a built achievement, when getting the `id`, then the `id` should match the"
+                    + " expected value.")
     void idIsBuiltCorrectly() {
         assertEquals(id, achievement.getId());
     }
 
     @Test
-    @DisplayName("`title` is built correctly.")
+    @DisplayName(
+            "Given a built achievement, when getting the `title`, then the `title` should match the"
+                    + " expected value.")
     void titleIsBuiltCorrectly() {
         assertEquals(title, achievement.getTitle());
     }
 
     @Test
-    @DisplayName("`status` is built correctly.")
+    @DisplayName(
+            "Given a built achievement, when getting the `status`, then the `status` should match"
+                    + " the expected value.")
     void statusIsBuiltCorrectly() {
         assertEquals(status, achievement.getStatus());
     }
 
     @Test
-    @DisplayName("`title` field is required.")
+    @DisplayName(
+            "Given a `title` field is missing, when building an achievement, then it should throw a"
+                    + " NullPointerException.")
     void checkTitleFieldIsRequired() {
         NullPointerException exception =
                 assertThrows(
                         NullPointerException.class,
-                        () ->
-                                com.example.achievement_tracker.model.Achievement.builder()
-                                        .id(id)
-                                        .status(status)
-                                        .build());
+                        () -> Achievement.builder().id(id).status(status).build());
 
         assertEquals("title is marked non-null but is null", exception.getMessage());
     }
 
     @Test
-    @DisplayName("`status` field is required.")
+    @DisplayName(
+            "Given a `status` field is missing, when building an achievement, then it should throw"
+                    + " a NullPointerException.")
     void checkStatusFieldIsRequired() {
         NullPointerException exception =
                 assertThrows(
                         NullPointerException.class,
-                        () ->
-                                com.example.achievement_tracker.model.Achievement.builder()
-                                        .id(id)
-                                        .title(title)
-                                        .build());
+                        () -> Achievement.builder().id(id).title(title).build());
 
         assertEquals("status is marked non-null but is null", exception.getMessage());
     }
 
     @Test
-    @DisplayName("Default value for optional `description` field.")
+    @DisplayName(
+            "Given a `description` is not provided, when initializing an achievement, then it"
+                    + " should default to the expected value.")
     void checkDefaultValueForDescriptionField() {
         assertEquals("This is a generic achievement.", achievement.getDescription());
     }
 
     @Test
-    @DisplayName("Default value for optional `dateStarted` field.")
+    @DisplayName(
+            "Given `dateStarted` is not provided, when initializing an achievement, then it should"
+                    + " default to the current date.")
     void checkDefaultValueForDateStartedField() {
-        assertEquals(expectedDate, achievement.getDateStarted());
+        assertEquals(LocalDate.now(), achievement.getDateStarted());
     }
 
     @Test
-    @DisplayName("Default value for optional `dateCompleted` field.")
+    @DisplayName(
+            "Given `dateCompleted` is not provided, when initializing an achievement, then it"
+                    + " should default to the current date.")
     void checkDefaultValueForDateCompletedField() {
-        assertEquals(expectedDate, achievement.getDateCompleted());
+        assertEquals(LocalDate.now(), achievement.getDateCompleted());
     }
 
     @Test
-    @DisplayName("Default value for optional `tags` field.")
+    @DisplayName(
+            "Given `tags` are not provided, when initializing an achievement, then it should"
+                    + " default to an empty list.")
     void checkDefaultValueForTagsField() {
-        assertTrue(achievement.getTags().isEmpty());
+        assertTrue(achievement.getTags().isEmpty(), "Tags list should be empty by default.");
     }
 }
