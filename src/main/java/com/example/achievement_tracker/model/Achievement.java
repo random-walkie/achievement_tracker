@@ -23,6 +23,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,22 +37,23 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Data
+@Table(name = "achievements")
 @Builder
 @NoArgsConstructor(force = true) // required by lombok to add force = true
 @AllArgsConstructor
-public class Achievements {
+public class Achievement {
 
     // required field
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    @NonNull private final Long id;
+    private Long id;
 
     // required field
-    @Column(columnDefinition = "varchar(50)", nullable = false, unique = true)
-    @Length(max = 50) @NonNull private final String title;
+    @Column(nullable = false, unique = true)
+    @NotEmpty(message = "Title cannot be empty.") @Length(max = 50, message = "Title length exceeds the allowed limit.") @NonNull private String title;
 
-    @Column(columnDefinition = "default 'This is a generic achievement.'", nullable = false)
+    @Column(nullable = false)
     @Builder.Default
     private String description = "This is a generic achievement.";
 
@@ -62,13 +65,10 @@ public class Achievements {
     @Builder.Default
     private LocalDate dateCompleted = LocalDate.now();
 
-    @ElementCollection
-    @Column(nullable = false)
-    @Builder.Default
-    private List<String> tags = new ArrayList<>();
+    @ElementCollection @Builder.Default private List<String> tags = new ArrayList<>();
 
     // required field
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @NonNull private final StatusEnum status;
+    @NonNull private StatusEnum status;
 }
