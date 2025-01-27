@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.achievement_tracker.model;
+package com.example.achievement_tracker.persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;

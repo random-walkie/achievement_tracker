@@ -13,17 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.achievement_tracker.repository;
+package com.example.achievement_tracker.common.exception;
 
-import com.example.achievement_tracker.model.Achievement;
-import com.example.achievement_tracker.model.StatusEnum;
-import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface AchievementRepository extends JpaRepository<Achievement, Long> {
-    // Custom query to find achievements by title
-    Optional<Achievement> findByTitle(String title);
-
-    // Custom query to find achievements by status
-    Optional<Achievement> findByStatus(StatusEnum status);
+public class RecordAlreadyExistsException extends RuntimeException {
+    public RecordAlreadyExistsException(String message) {
+        super(message);
+    }
 }

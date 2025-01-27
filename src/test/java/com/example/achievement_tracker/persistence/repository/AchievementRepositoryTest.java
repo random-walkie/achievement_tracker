@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.achievement_tracker.repository;
+package com.example.achievement_tracker.persistence.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.example.achievement_tracker.model.Achievement;
-import com.example.achievement_tracker.model.StatusEnum;
+import com.example.achievement_tracker.persistence.model.Achievement;
+import com.example.achievement_tracker.persistence.model.StatusEnum;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;

@@ -23,20 +23,23 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.mapstruct:mapstruct:1.6.3'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mockito:mockito-core:3.+'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	compileOnly 'org.projectlombok:lombok:1.18.36'
 	annotationProcessor 'org.projectlombok:lombok:1.18.36'
 	testCompileOnly 'org.projectlombok:lombok:1.18.36'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 }
 
 spotless {
 
 	// optional: limit format enforcement to just the files changed by this feature branch
-	ratchetFrom 'achievement_tracker/main'
+	ratchetFrom 'origin/main'
 
 	format 'misc', {
 		// define the files to apply `misc` to
