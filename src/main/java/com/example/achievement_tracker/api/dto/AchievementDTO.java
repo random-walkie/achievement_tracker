@@ -24,10 +24,10 @@ import lombok.Builder;
 
 @Builder
 public record AchievementDTO(
-        @NotBlank Long id,
+        @NotNull Long id,
         @NotBlank @Size(max = 50) String title,
-        @NotNull String description,
+        @NotBlank String description,
         @NotNull LocalDate dateStarted,
         @NotNull LocalDate dateCompleted,
         @NotNull List<String> tags,
-        @NotNull String status) {}
+        @NotBlank String status) {}

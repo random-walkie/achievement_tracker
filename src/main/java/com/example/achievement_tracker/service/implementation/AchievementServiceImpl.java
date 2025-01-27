@@ -57,14 +57,17 @@ public class AchievementServiceImpl implements AchievementService {
     @Override
     public Optional<AchievementDTO> getAchievementById(Long id) {
 
-        return Optional.ofNullable(
-                achievementRepository
-                        .findById(id)
-                        .map(achievementMapper::toDTO)
-                        .orElseThrow(
-                                () ->
-                                        new RecordDoesNotExistException(
-                                                "Achievement with ID " + id + " does not exist!")));
+        return achievementRepository
+                .findById(id)
+                .map(achievementMapper::toDTO);
+    }
+
+    @Override
+    public Optional<AchievementDTO> getAchievementByTitle(String title) {
+
+        return achievementRepository
+                .findByTitle(title)
+                .map(achievementMapper::toDTO); // Map to DTO if present, otherwise return Optional.empty()
     }
 
     @Override
@@ -76,22 +79,28 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     @Override
-    public AchievementDTO updateAchievement(AchievementDTO achievementDTO) {
-        // check if achievement with the given ID exists
+    public Optional<AchievementDTO> updateAchievement(AchievementDTO achievementDTO) {
+        // Check if achievement with the given ID exists
         Long id = achievementDTO.id();
-        Achievement existingAchievement =
-                achievementRepository
-                        .findById(id)
-                        .orElseThrow(
-                                () ->
-                                        new RecordDoesNotExistException(
-                                                "Achievement with ID " + id + " does not exist!"));
-        // update DTO to entity
+        Optional<Achievement> existingAchievementOptional = achievementRepository.findById(id);
+
+        if (existingAchievementOptional.isEmpty()) {
+            // Return an empty Optional if the achievement does not exist
+            return Optional.empty();
+        }
+
+        // Update DTO to entity
+        Achievement existingAchievement = existingAchievementOptional.get();
         achievementMapper.updateEntityFromDTO(achievementDTO, existingAchievement);
-        // save entity in a database
+
+        // Save entity in the database
         Achievement savedAchievement = achievementRepository.save(existingAchievement);
-        // map entity to DTO
-        return achievementMapper.toDTO(savedAchievement);
+
+        // Map entity to DTO
+        AchievementDTO updatedDTO = achievementMapper.toDTO(savedAchievement);
+
+        // Return updated DTO wrapped in Optional
+        return Optional.of(updatedDTO);
     }
 
     @Override

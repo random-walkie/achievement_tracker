@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.example.achievement_tracker.persistence.model.Achievement;
 import com.example.achievement_tracker.persistence.model.StatusEnum;
-import com.example.achievement_tracker.persistence.repository.AchievementRepository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;

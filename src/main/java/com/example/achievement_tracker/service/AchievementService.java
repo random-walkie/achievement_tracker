@@ -26,7 +26,9 @@ public interface AchievementService {
 
     List<AchievementDTO> getAllAchievements();
 
-    AchievementDTO updateAchievement(AchievementDTO achievementDTO);
+    Optional<AchievementDTO> updateAchievement(AchievementDTO achievementDTO);
 
     void deleteAchievement(Long id);
+
+    Optional<AchievementDTO> getAchievementByTitle(String title);
 }
