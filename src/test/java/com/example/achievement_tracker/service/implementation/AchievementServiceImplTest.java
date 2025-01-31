@@ -1,12 +1,19 @@
 package com.example.achievement_tracker.service.implementation;
 
 import com.example.achievement_tracker.api.dto.AchievementDTO;
+import com.example.achievement_tracker.api.dto.CreateAchievementDTO;
+import com.example.achievement_tracker.api.dto.UpdateAchievementDTO;
 import com.example.achievement_tracker.common.exception.RecordDoesNotExistException;
 import com.example.achievement_tracker.persistence.model.Achievement;
 import com.example.achievement_tracker.persistence.model.StatusEnum;
 import com.example.achievement_tracker.persistence.repository.AchievementRepository;
 import com.example.achievement_tracker.utility.AchievementMapper;
 import jakarta.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,12 +23,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 @Transactional
@@ -37,6 +38,8 @@ public class AchievementServiceImplTest {
     private AchievementMapper achievementMapper;
 
     private AchievementDTO achievementDTO;
+  private CreateAchievementDTO createAchievementDTO;
+  private UpdateAchievementDTO updateAchievementDTO;
     private Achievement achievement;
 
     @BeforeEach
@@ -59,6 +62,27 @@ public class AchievementServiceImplTest {
                 .status(status.name()) // StatusEnum to String
                 .build();
 
+    createAchievementDTO =
+        CreateAchievementDTO.builder()
+            .title(title)
+            .description(description)
+            .dateStarted(dateStarted)
+            .dateCompleted(dateCompleted)
+            .tags(tags)
+            .status(status.name()) // StatusEnum to String
+            .build();
+
+    updateAchievementDTO =
+        UpdateAchievementDTO.builder()
+            .id(id)
+            .title(title)
+            .description(description)
+            .dateStarted(dateStarted)
+            .dateCompleted(dateCompleted)
+            .tags(tags)
+            .status(status.name()) // StatusEnum to String
+            .build();
+
         achievement = Achievement.builder()
                 .id(id)
                 .title(title)
@@ -73,12 +97,11 @@ public class AchievementServiceImplTest {
     @Test
     @DisplayName("Should create an achievement and return AchievementDTO")
     void createAchievement_Success() {
-        Mockito.when(achievementRepository.existsById(achievement.getId())).thenReturn(false);
-        Mockito.when(achievementMapper.toEntity(achievementDTO)).thenReturn(achievement);
+    Mockito.when(achievementMapper.toEntity(createAchievementDTO)).thenReturn(achievement);
         Mockito.when(achievementRepository.save(achievement)).thenReturn(achievement);
         Mockito.when(achievementMapper.toDTO(achievement)).thenReturn(achievementDTO);
 
-        AchievementDTO result = achievementService.createAchievement(achievementDTO);
+    AchievementDTO result = achievementService.createAchievement(createAchievementDTO);
 
         Mockito.verify(achievementRepository, Mockito.times(1)).save(Mockito.any(Achievement.class));
         Assertions.assertEquals(achievementDTO, result, "Created AchievementDTO should match the expected value.");
@@ -125,7 +148,7 @@ public class AchievementServiceImplTest {
         Mockito.when(achievementRepository.save(achievement)).thenReturn(achievement);
         Mockito.when(achievementMapper.toDTO(achievement)).thenReturn(achievementDTO);
 
-        Optional<AchievementDTO> result = achievementService.updateAchievement(achievementDTO);
+    Optional<AchievementDTO> result = achievementService.updateAchievement(updateAchievementDTO);
 
         Mockito.verify(achievementRepository, Mockito.times(1)).save(Mockito.any(Achievement.class));
         Assertions.assertTrue(result.isPresent(), "AchievementDTO should be present for a valid ID.");
