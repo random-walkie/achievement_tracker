@@ -52,18 +52,17 @@ public class AchievementServiceImpl implements AchievementService {
     @Override
     public Optional<AchievementDTO> getAchievementById(Long id) {
 
-        return achievementRepository
-                .findById(id)
-                .map(achievementMapper::toDTO);
+    return achievementRepository.findById(id).map(achievementMapper::toDTO);
     }
 
     @Override
     public Optional<AchievementDTO> getAchievementByTitle(String title) {
 
-        return achievementRepository
-                .findByTitle(title)
-                .map(achievementMapper::toDTO); // Map to DTO if present, otherwise return Optional.empty()
-    }
+    return achievementRepository
+        .findByTitle(title)
+        .map(achievementMapper::toDTO); // Map to DTO if present, otherwise return
+    // Optional.empty()
+  }
 
     @Override
     public List<AchievementDTO> getAllAchievements() {

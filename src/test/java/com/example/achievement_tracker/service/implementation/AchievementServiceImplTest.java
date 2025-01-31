@@ -1,3 +1,18 @@
+/*
+ * Copyright 2015 DiffPlug
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.achievement_tracker.service.implementation;
 
 import com.example.achievement_tracker.api.dto.AchievementDTO;
@@ -28,14 +43,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @Transactional
 public class AchievementServiceImplTest {
 
-    @InjectMocks
-    private AchievementServiceImpl achievementService;
+  @InjectMocks private AchievementServiceImpl achievementService;
 
-    @Mock
-    private AchievementRepository achievementRepository;
+  @Mock private AchievementRepository achievementRepository;
 
-    @Mock
-    private AchievementMapper achievementMapper;
+  @Mock private AchievementMapper achievementMapper;
 
     private AchievementDTO achievementDTO;
   private CreateAchievementDTO createAchievementDTO;
@@ -52,15 +64,16 @@ public class AchievementServiceImplTest {
         List<String> tags = Arrays.asList("tag1", "tag2");
         StatusEnum status = StatusEnum.COMPLETED;
 
-        achievementDTO = AchievementDTO.builder()
-                .id(id)
-                .title(title)
-                .description(description)
-                .dateStarted(dateStarted)
-                .dateCompleted(dateCompleted)
-                .tags(tags)
-                .status(status.name()) // StatusEnum to String
-                .build();
+    achievementDTO =
+        AchievementDTO.builder()
+            .id(id)
+            .title(title)
+            .description(description)
+            .dateStarted(dateStarted)
+            .dateCompleted(dateCompleted)
+            .tags(tags)
+            .status(status.name()) // StatusEnum to String
+            .build();
 
     createAchievementDTO =
         CreateAchievementDTO.builder()
@@ -83,15 +96,16 @@ public class AchievementServiceImplTest {
             .status(status.name()) // StatusEnum to String
             .build();
 
-        achievement = Achievement.builder()
-                .id(id)
-                .title(title)
-                .description(description)
-                .dateStarted(dateStarted)
-                .dateCompleted(dateCompleted)
-                .tags(tags)
-                .status(status)
-                .build();
+    achievement =
+        Achievement.builder()
+            .id(id)
+            .title(title)
+            .description(description)
+            .dateStarted(dateStarted)
+            .dateCompleted(dateCompleted)
+            .tags(tags)
+            .status(status)
+            .build();
     }
 
     @Test
@@ -103,20 +117,23 @@ public class AchievementServiceImplTest {
 
     AchievementDTO result = achievementService.createAchievement(createAchievementDTO);
 
-        Mockito.verify(achievementRepository, Mockito.times(1)).save(Mockito.any(Achievement.class));
-        Assertions.assertEquals(achievementDTO, result, "Created AchievementDTO should match the expected value.");
+    Mockito.verify(achievementRepository, Mockito.times(1)).save(Mockito.any(Achievement.class));
+    Assertions.assertEquals(
+        achievementDTO, result, "Created AchievementDTO should match the expected value.");
     }
 
     @Test
     @DisplayName("Should return AchievementDTO for a valid ID")
     void getAchievementById_Success() {
-        Mockito.when(achievementRepository.findById(achievement.getId())).thenReturn(Optional.of(achievement));
+    Mockito.when(achievementRepository.findById(achievement.getId()))
+        .thenReturn(Optional.of(achievement));
         Mockito.when(achievementMapper.toDTO(achievement)).thenReturn(achievementDTO);
 
-        Optional<AchievementDTO> result = achievementService.getAchievementById(achievementDTO.id());
+    Optional<AchievementDTO> result = achievementService.getAchievementById(achievementDTO.id());
 
-        Assertions.assertTrue(result.isPresent(), "AchievementDTO should be present for a valid ID.");
-        Assertions.assertEquals(achievementDTO, result.get(), "Returned AchievementDTO should match the expected value.");
+    Assertions.assertTrue(result.isPresent(), "AchievementDTO should be present for a valid ID.");
+    Assertions.assertEquals(
+        achievementDTO, result.get(), "Returned AchievementDTO should match the expected value.");
     }
 
     @Test
@@ -126,35 +143,41 @@ public class AchievementServiceImplTest {
 
         Optional<AchievementDTO> result = achievementService.getAchievementById(123L);
 
-        Assertions.assertFalse(result.isPresent(), "AchievementDTO should not be present for a non-existent ID.");
+    Assertions.assertFalse(
+        result.isPresent(), "AchievementDTO should not be present for a non-existent ID.");
     }
 
     @Test
     @DisplayName("Should return a list of all AchievementDTOs")
     void getAllAchievements() {
-        Mockito.when(achievementRepository.findAll()).thenReturn(Collections.singletonList(achievement));
+    Mockito.when(achievementRepository.findAll())
+        .thenReturn(Collections.singletonList(achievement));
         Mockito.when(achievementMapper.toDTO(achievement)).thenReturn(achievementDTO);
 
         List<AchievementDTO> result = achievementService.getAllAchievements();
 
-        Assertions.assertEquals(1, result.size(), "The size of the result list should be as expected.");
-        Assertions.assertEquals(achievementDTO, result.get(0), "The retrieved AchievementDTO should match the expected value.");
+    Assertions.assertEquals(1, result.size(), "The size of the result list should be as expected.");
+    Assertions.assertEquals(
+        achievementDTO,
+        result.get(0),
+        "The retrieved AchievementDTO should match the expected value.");
     }
 
     @Test
     @DisplayName("Should update an existing achievement and return updated AchievementDTO")
     void updateAchievement_Success() {
-        Mockito.when(achievementRepository.findById(achievement.getId())).thenReturn(Optional.of(achievement));
+    Mockito.when(achievementRepository.findById(achievement.getId()))
+        .thenReturn(Optional.of(achievement));
         Mockito.when(achievementRepository.save(achievement)).thenReturn(achievement);
         Mockito.when(achievementMapper.toDTO(achievement)).thenReturn(achievementDTO);
 
     Optional<AchievementDTO> result = achievementService.updateAchievement(updateAchievementDTO);
 
-        Mockito.verify(achievementRepository, Mockito.times(1)).save(Mockito.any(Achievement.class));
-        Assertions.assertTrue(result.isPresent(), "AchievementDTO should be present for a valid ID.");
-        Assertions.assertEquals(achievementDTO, result.get(), "Updated AchievementDTO should match the expected value.");
+    Mockito.verify(achievementRepository, Mockito.times(1)).save(Mockito.any(Achievement.class));
+    Assertions.assertTrue(result.isPresent(), "AchievementDTO should be present for a valid ID.");
+    Assertions.assertEquals(
+        achievementDTO, result.get(), "Updated AchievementDTO should match the expected value.");
     }
-
 
     @Test
     @DisplayName("Should delete an achievement for a valid ID")
@@ -171,18 +194,16 @@ public class AchievementServiceImplTest {
     void deleteAchievementWithNonExistentId() {
         Mockito.when(achievementRepository.existsById(123L)).thenReturn(false);
 
-        // Assert that the exception is thrown
-        RecordDoesNotExistException exception = Assertions.assertThrows(
-                RecordDoesNotExistException.class,
-                () -> achievementService.deleteAchievement(123L)
-        );
+    // Assert that the exception is thrown
+    RecordDoesNotExistException exception =
+        Assertions.assertThrows(
+            RecordDoesNotExistException.class, () -> achievementService.deleteAchievement(123L));
 
-        // Verify the exception message
-        Assertions.assertEquals(
-                "Cannot delete: Achievement with ID 123 does not exist!",
-                exception.getMessage(),
-                "Exception message should match the expected value."
-        );
+    // Verify the exception message
+    Assertions.assertEquals(
+        "Cannot delete: Achievement with ID 123 does not exist!",
+        exception.getMessage(),
+        "Exception message should match the expected value.");
 
         // Verify that deleteById() is never called
         Mockito.verify(achievementRepository, Mockito.never()).deleteById(123L);
@@ -191,22 +212,28 @@ public class AchievementServiceImplTest {
     @Test
     @DisplayName("Should find achievement by title")
     void getAchievementByTitle_Success() {
-        Mockito.when(achievementRepository.findByTitle("Test Title")).thenReturn(Optional.of(achievement));
+    Mockito.when(achievementRepository.findByTitle("Test Title"))
+        .thenReturn(Optional.of(achievement));
         Mockito.when(achievementMapper.toDTO(achievement)).thenReturn(achievementDTO);
 
         Optional<AchievementDTO> result = achievementService.getAchievementByTitle("Test Title");
 
         Assertions.assertTrue(result.isPresent(), "Achievement should be found by title.");
-        Assertions.assertEquals(achievementDTO, result.get(), "The retrieved AchievementDTO should match the expected value.");
+    Assertions.assertEquals(
+        achievementDTO,
+        result.get(),
+        "The retrieved AchievementDTO should match the expected value.");
     }
 
     @Test
     @DisplayName("Should return empty for a non-existent title")
     void getAchievementByTitle_NonExistent() {
-        Mockito.when(achievementRepository.findByTitle("NonExistent Title")).thenReturn(Optional.empty());
+    Mockito.when(achievementRepository.findByTitle("NonExistent Title"))
+        .thenReturn(Optional.empty());
 
-        Optional<AchievementDTO> result = achievementService.getAchievementByTitle("NonExistent Title");
+    Optional<AchievementDTO> result = achievementService.getAchievementByTitle("NonExistent Title");
 
-        Assertions.assertFalse(result.isPresent(), "No Achievement should be found for a non-existent title.");
+    Assertions.assertFalse(
+        result.isPresent(), "No Achievement should be found for a non-existent title.");
     }
 }
