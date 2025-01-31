@@ -26,8 +26,8 @@ import lombok.Builder;
 public record AchievementDTO(
         @NotNull Long id,
         @NotBlank @Size(max = 50) String title,
-        @NotBlank String description,
-        @NotNull LocalDate dateStarted,
-        @NotNull LocalDate dateCompleted,
-        @NotNull List<String> tags,
+        String description,
+        LocalDate dateStarted,
+        LocalDate dateCompleted,
+        List<String> tags,
         @NotBlank String status) {}
