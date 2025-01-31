@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.achievement_tracker.utility;
+package com.example.achievement_tracker.persistence.mapper;
 
 import com.example.achievement_tracker.api.dto.AchievementDTO;
 import com.example.achievement_tracker.api.dto.CreateAchievementDTO;
