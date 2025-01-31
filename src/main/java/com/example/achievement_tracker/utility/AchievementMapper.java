@@ -28,6 +28,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface AchievementMapper {
+  @Mapping(target = "id", ignore = true)
   Achievement toEntity(CreateAchievementDTO createAchievementDTO);
 
     AchievementDTO toDTO(Achievement achievement);
