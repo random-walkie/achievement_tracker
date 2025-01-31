@@ -16,8 +16,11 @@
 package com.example.achievement_tracker.utility;
 
 import com.example.achievement_tracker.api.dto.AchievementDTO;
+import com.example.achievement_tracker.api.dto.CreateAchievementDTO;
+import com.example.achievement_tracker.api.dto.UpdateAchievementDTO;
 import com.example.achievement_tracker.persistence.model.Achievement;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
@@ -25,10 +28,12 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface AchievementMapper {
-    Achievement toEntity(AchievementDTO achievementDTO);
+  Achievement toEntity(CreateAchievementDTO createAchievementDTO);
 
     AchievementDTO toDTO(Achievement achievement);
 
-    // Auto-generate logic to update an entity using a DTO
-    void updateEntityFromDTO(AchievementDTO achievementDTO, @MappingTarget Achievement entity);
+  // Auto-generate logic to update an entity using a DTO
+  @Mapping(target = "id", ignore = true)
+  void updateEntityFromDTO(
+      UpdateAchievementDTO updateAchievementDTO, @MappingTarget Achievement entity);
 }
