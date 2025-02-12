@@ -39,10 +39,10 @@ public class AchievementServiceImpl implements AchievementService {
     private final AchievementMapper achievementMapper;
     private final AchievementRepository achievementRepository;
 
-  @Override
-  public AchievementDTO createAchievement(CreateAchievementDTO createAchievementDTO) {
-    // map DTO to entity
-    Achievement achievement = achievementMapper.toEntity(createAchievementDTO);
+    @Override
+    public AchievementDTO createAchievement(CreateAchievementDTO createAchievementDTO) {
+        // map DTO to entity
+        Achievement achievement = achievementMapper.toEntity(createAchievementDTO);
         // save entity in a database
         Achievement savedAchievement = achievementRepository.save(achievement);
         // map entity to DTO
@@ -52,17 +52,17 @@ public class AchievementServiceImpl implements AchievementService {
     @Override
     public Optional<AchievementDTO> getAchievementById(Long id) {
 
-    return achievementRepository.findById(id).map(achievementMapper::toDTO);
+        return achievementRepository.findById(id).map(achievementMapper::toDTO);
     }
 
     @Override
     public Optional<AchievementDTO> getAchievementByTitle(String title) {
 
-    return achievementRepository
-        .findByTitle(title)
-        .map(achievementMapper::toDTO); // Map to DTO if present, otherwise return
-    // Optional.empty()
-  }
+        return achievementRepository
+                .findByTitle(title)
+                .map(achievementMapper::toDTO); // Map to DTO if present, otherwise return
+        // Optional.empty()
+    }
 
     @Override
     public List<AchievementDTO> getAllAchievements() {
@@ -72,10 +72,10 @@ public class AchievementServiceImpl implements AchievementService {
                 .collect(Collectors.toList());
     }
 
-  @Override
-  public Optional<AchievementDTO> updateAchievement(UpdateAchievementDTO updateAchievementDTO) {
-    // Check if achievement with the given ID exists
-    Long id = updateAchievementDTO.id();
+    @Override
+    public Optional<AchievementDTO> updateAchievement(UpdateAchievementDTO updateAchievementDTO) {
+        // Check if achievement with the given ID exists
+        Long id = updateAchievementDTO.id();
         Optional<Achievement> existingAchievementOptional = achievementRepository.findById(id);
 
         if (existingAchievementOptional.isEmpty()) {
@@ -85,7 +85,7 @@ public class AchievementServiceImpl implements AchievementService {
 
         // Update DTO to entity
         Achievement existingAchievement = existingAchievementOptional.get();
-    achievementMapper.updateEntityFromDTO(updateAchievementDTO, existingAchievement);
+        achievementMapper.updateEntityFromDTO(updateAchievementDTO, existingAchievement);
 
         // Save entity in the database
         Achievement savedAchievement = achievementRepository.save(existingAchievement);

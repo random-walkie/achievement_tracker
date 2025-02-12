@@ -22,13 +22,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AchievementService {
-  AchievementDTO createAchievement(CreateAchievementDTO createAchievementDTO);
+    AchievementDTO createAchievement(CreateAchievementDTO createAchievementDTO);
 
     Optional<AchievementDTO> getAchievementById(Long id);
 
     List<AchievementDTO> getAllAchievements();
 
-  Optional<AchievementDTO> updateAchievement(UpdateAchievementDTO updateAchievementDTO);
+    Optional<AchievementDTO> updateAchievement(UpdateAchievementDTO updateAchievementDTO);
 
     void deleteAchievement(Long id);
 

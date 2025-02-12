@@ -28,13 +28,13 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface AchievementMapper {
-  @Mapping(target = "id", ignore = true)
-  Achievement toEntity(CreateAchievementDTO createAchievementDTO);
+    @Mapping(target = "id", ignore = true)
+    Achievement toEntity(CreateAchievementDTO createAchievementDTO);
 
     AchievementDTO toDTO(Achievement achievement);
 
-  // Auto-generate logic to update an entity using a DTO
-  @Mapping(target = "id", ignore = true)
-  void updateEntityFromDTO(
-      UpdateAchievementDTO updateAchievementDTO, @MappingTarget Achievement entity);
+    // Auto-generate logic to update an entity using a DTO
+    @Mapping(target = "id", ignore = true)
+    void updateEntityFromDTO(
+            UpdateAchievementDTO updateAchievementDTO, @MappingTarget Achievement entity);
 }
