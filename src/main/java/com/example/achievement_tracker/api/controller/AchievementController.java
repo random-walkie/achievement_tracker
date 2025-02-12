@@ -19,6 +19,7 @@ import com.example.achievement_tracker.api.dto.AchievementDTO;
 import com.example.achievement_tracker.api.dto.CreateAchievementDTO;
 import com.example.achievement_tracker.api.dto.UpdateAchievementDTO;
 import com.example.achievement_tracker.service.AchievementService;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
@@ -37,42 +38,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/achievements")
 public class AchievementController {
 
-  private final AchievementService achievementService;
+    private final AchievementService achievementService;
 
-  public AchievementController(AchievementService achievementService) {
-    this.achievementService = achievementService;
-  }
+    public AchievementController(AchievementService achievementService) {
+        this.achievementService = achievementService;
+    }
 
-  @PostMapping
-  @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<AchievementDTO> createAchievement(
-      @RequestBody CreateAchievementDTO createAchievementDTO) {
-    return ResponseEntity.status(HttpStatus.CREATED)
-        .body(achievementService.createAchievement(createAchievementDTO));
-  }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<AchievementDTO> createAchievement(
+            @Valid @RequestBody CreateAchievementDTO createAchievementDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(achievementService.createAchievement(createAchievementDTO));
+    }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<AchievementDTO> getAchievementById(@PathVariable Long id) {
-    Optional<AchievementDTO> achievementDTO = achievementService.getAchievementById(id);
-    return achievementDTO
-        .map(ResponseEntity::ok)
-        .orElseGet(() -> ResponseEntity.notFound().build());
-  }
+    @GetMapping("/{id}")
+    public ResponseEntity<AchievementDTO> getAchievementById(@PathVariable Long id) {
+        Optional<AchievementDTO> achievementDTO = achievementService.getAchievementById(id);
+        return achievementDTO
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
-  @GetMapping
-  public ResponseEntity<List<AchievementDTO>> getAllAchievements() {
-    return ResponseEntity.ok(achievementService.getAllAchievements());
-  }
+    @GetMapping
+    public ResponseEntity<List<AchievementDTO>> getAllAchievements() {
+        return ResponseEntity.ok(achievementService.getAllAchievements());
+    }
 
-  @PutMapping("/{id}")
-  public ResponseEntity<Optional<AchievementDTO>> updateAchievement(
-      @RequestBody UpdateAchievementDTO updateAchievementDTO) {
-    return ResponseEntity.ok(achievementService.updateAchievement(updateAchievementDTO));
-  }
+    @PutMapping("/{id}")
+    public ResponseEntity<Optional<AchievementDTO>> updateAchievement(
+            @Valid @RequestBody UpdateAchievementDTO updateAchievementDTO) {
+        return ResponseEntity.ok(achievementService.updateAchievement(updateAchievementDTO));
+    }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteAchievement(@PathVariable Long id) {
-    achievementService.deleteAchievement(id);
-    return ResponseEntity.noContent().build();
-  }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAchievement(@PathVariable Long id) {
+        achievementService.deleteAchievement(id);
+        return ResponseEntity.noContent().build();
+    }
 }
