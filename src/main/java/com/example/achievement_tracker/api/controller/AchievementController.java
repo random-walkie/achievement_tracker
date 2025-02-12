@@ -57,18 +57,26 @@ public class AchievementController {
         Optional<AchievementDTO> achievementDTO = achievementService.getAchievementById(id);
         return achievementDTO
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.noContent().build());
     }
 
     @GetMapping
     public ResponseEntity<List<AchievementDTO>> getAllAchievements() {
-        return ResponseEntity.ok(achievementService.getAllAchievements());
+        List<AchievementDTO> achievementsDTO = achievementService.getAllAchievements();
+
+        return achievementsDTO.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(achievementsDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<AchievementDTO>> updateAchievement(
+    public ResponseEntity<AchievementDTO> updateAchievement(
             @Valid @RequestBody UpdateAchievementDTO updateAchievementDTO) {
-        return ResponseEntity.ok(achievementService.updateAchievement(updateAchievementDTO));
+        Optional<AchievementDTO> updatedAchievementDTO =
+                achievementService.updateAchievement(updateAchievementDTO);
+        return updatedAchievementDTO
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.noContent().build());
     }
 
     @DeleteMapping("/{id}")
