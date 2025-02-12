@@ -32,4 +32,7 @@ public record UpdateAchievementDTO(
         LocalDate dateStarted,
         LocalDate dateCompleted,
         List<String> tags,
-        @ValueOfEnum(enumClass = StatusEnum.class) @NotBlank String status) {}
+        @ValueOfEnum(
+                        enumClass = StatusEnum.class,
+                        message = "Must be any of TODO, IN_PROGRESS, or COMPLETED")
+                @NotBlank String status) {}
