@@ -16,17 +16,19 @@
 package com.example.achievement_tracker.service;
 
 import com.example.achievement_tracker.api.dto.AchievementDTO;
+import com.example.achievement_tracker.api.dto.CreateAchievementDTO;
+import com.example.achievement_tracker.api.dto.UpdateAchievementDTO;
 import java.util.List;
 import java.util.Optional;
 
 public interface AchievementService {
-    AchievementDTO createAchievement(AchievementDTO achievementDTO);
+    AchievementDTO createAchievement(CreateAchievementDTO createAchievementDTO);
 
     Optional<AchievementDTO> getAchievementById(Long id);
 
     List<AchievementDTO> getAllAchievements();
 
-    Optional<AchievementDTO> updateAchievement(AchievementDTO achievementDTO);
+    Optional<AchievementDTO> updateAchievement(UpdateAchievementDTO updateAchievementDTO);
 
     void deleteAchievement(Long id);
 

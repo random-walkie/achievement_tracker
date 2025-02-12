@@ -42,7 +42,6 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor(force = true) // required by lombok to add force = true
 @AllArgsConstructor
 public class Achievement {
-
     // required field
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,19 +52,13 @@ public class Achievement {
     @Column(nullable = false, unique = true)
     @NotEmpty(message = "Title cannot be empty.") @Length(max = 50, message = "Title length exceeds the allowed limit.") @NonNull private String title;
 
-    @Column(nullable = false)
-    @Builder.Default
-    private String description = "This is a generic achievement.";
+    @Column @Builder.Default private String description = "This is a generic achievement.";
 
-    @Column(nullable = false)
-    @Builder.Default
-    private LocalDate dateStarted = LocalDate.now();
+    @Column @Builder.Default private LocalDate dateStarted = LocalDate.now();
 
-    @Column(nullable = false)
-    @Builder.Default
-    private LocalDate dateCompleted = LocalDate.now();
+    @Column @Builder.Default private LocalDate dateCompleted = LocalDate.now();
 
-    @ElementCollection @Builder.Default private List<String> tags = new ArrayList<>();
+    @Column @ElementCollection @Builder.Default private List<String> tags = new ArrayList<>();
 
     // required field
     @Enumerated(EnumType.STRING)

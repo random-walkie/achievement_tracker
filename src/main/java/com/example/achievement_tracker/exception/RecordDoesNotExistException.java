@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.achievement_tracker.common.exception;
+package com.example.achievement_tracker.exception;
 
-public class RecordAlreadyExistsException extends RuntimeException {
-    public RecordAlreadyExistsException(String message) {
+public class RecordDoesNotExistException extends RuntimeException {
+    public RecordDoesNotExistException(String message) {
         super(message);
     }
 }
