@@ -15,6 +15,8 @@
  */
 package com.example.achievement_tracker.api.dto;
 
+import com.example.achievement_tracker.persistence.model.StatusEnum;
+import com.example.achievement_tracker.validation.ValueOfEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
@@ -23,9 +25,9 @@ import lombok.Builder;
 
 @Builder
 public record CreateAchievementDTO(
-    @NotBlank @Size(max = 50) String title,
-    String description,
-    LocalDate dateStarted,
-    LocalDate dateCompleted,
-    List<String> tags,
-    @NotBlank String status) {}
+        @NotBlank @Size(max = 50) String title,
+        String description,
+        LocalDate dateStarted,
+        LocalDate dateCompleted,
+        List<String> tags,
+        @ValueOfEnum(enumClass = StatusEnum.class) @NotBlank String status) {}
