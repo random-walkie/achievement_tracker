@@ -27,7 +27,7 @@ import lombok.Builder;
 @Builder
 public record UpdateAchievementDTO(
         @NotNull Long id,
-        @NotBlank @Size(max = 50) String title,
+        @Size(max = 50) String title,
         String description,
         LocalDate dateStarted,
         LocalDate dateCompleted,

@@ -44,7 +44,7 @@ public class AchievementController {
         this.achievementService = achievementService;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<AchievementDTO> createAchievement(
             @Valid @RequestBody CreateAchievementDTO createAchievementDTO) {

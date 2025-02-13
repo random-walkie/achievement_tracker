@@ -91,10 +91,11 @@ class AchievementControllerUnitTest {
         // Given: Stub the service to return a predefined achievementDTO
         when(achievementServiceMock.createAchievement(any(CreateAchievementDTO.class)))
                 .thenReturn(achievementDTO);
-        // When & Then: Perform a POST request to the /api/v1/achievements endpoint with a valid
+        // When & Then: Perform a POST request to the /api/v1/achievements/create endpoint with a
+        // valid
         // CreateAchievementDTO
         mockMvc.perform(
-                        post("/api/v1/achievements")
+                        post("/api/v1/achievements/create")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(createAchievementDTO)))
                 .andExpect(status().isCreated())
@@ -120,7 +121,7 @@ class AchievementControllerUnitTest {
 
         // When & Then: Perform the POST request and expect a 400 Bad Request status
         mockMvc.perform(
-                        post("/api/v1/achievements")
+                        post("/api/v1/achievements/create")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -142,7 +143,7 @@ class AchievementControllerUnitTest {
 
         // When & Then: Perform the POST request and expect a 400 Bad Request status
         mockMvc.perform(
-                        post("/api/v1/achievements")
+                        post("/api/v1/achievements/create")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -163,7 +164,7 @@ class AchievementControllerUnitTest {
                 CreateAchievementDTO.builder().title("").status(status).build();
         // When & Then: Perform the POST request and expect a 400 Bad Request status
         mockMvc.perform(
-                        post("/api/v1/achievements")
+                        post("/api/v1/achievements/create")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -184,7 +185,7 @@ class AchievementControllerUnitTest {
                 CreateAchievementDTO.builder().title(title).status("").build();
         // When & Then: Perform the POST request and expect a 400 Bad Request status
         mockMvc.perform(
-                        post("/api/v1/achievements")
+                        post("/api/v1/achievements/create")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
@@ -205,7 +206,7 @@ class AchievementControllerUnitTest {
                 CreateAchievementDTO.builder().title(title).status("INVALID").build();
         // When & Then: Perform the POST request and expect a 400 Bad Request status
         mockMvc.perform(
-                        post("/api/v1/achievements")
+                        post("/api/v1/achievements/create")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         objectMapper.writeValueAsString(
