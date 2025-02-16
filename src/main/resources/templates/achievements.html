@@ -46,6 +46,9 @@
             </tr>
             </thead>
             <tbody id="achievementsTable">
+            <tr th:if="${achievements.isEmpty()}">
+                <td colspan="6" class="text-center text-muted">No achievements found</td>
+            </tr>
             <tr th:each="achievement : ${achievements}" th:data-status="${achievement.status}">
                 <td th:text="${achievement.title}"></td>
                 <td th:text="${achievement.description}"></td>

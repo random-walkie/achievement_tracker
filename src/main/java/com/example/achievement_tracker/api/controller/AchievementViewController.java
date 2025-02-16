@@ -36,7 +36,7 @@ public class AchievementViewController {
     @GetMapping
     public String showAchievements(Model model) {
         List<AchievementDTO> achievements = achievementService.getAllAchievements();
-        model.addAttribute("achievements", achievements);
+        model.addAttribute("achievements", achievements.isEmpty() ? List.of() : achievements);
         return "achievements";
     }
 }
