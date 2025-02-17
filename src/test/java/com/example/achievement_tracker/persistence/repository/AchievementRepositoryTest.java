@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -62,7 +63,7 @@ public class AchievementRepositoryTest {
                 Achievement.builder()
                         .status(status2)
                         .title(title2)
-                        .tags(List.of("tagA", "tagB"))
+                        .tags(Set.of("tagA", "tagB"))
                         .build();
         achievementRepository.save(achievement2);
     }
@@ -204,9 +205,9 @@ public class AchievementRepositoryTest {
                                                 + "' not found"));
 
         assertEquals(
-                List.of("tagA", "tagB"),
+                Set.of("tagA", "tagB"),
                 foundAchievement.getTags(),
-                "Tags should match the saved list");
+                "Tags should match the saved set");
     }
 
     @Test

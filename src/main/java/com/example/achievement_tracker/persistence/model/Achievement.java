@@ -26,8 +26,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -58,7 +58,7 @@ public class Achievement {
 
     @Column @Builder.Default private LocalDate dateCompleted = LocalDate.now();
 
-    @Column @ElementCollection @Builder.Default private List<String> tags = new ArrayList<>();
+    @Column @ElementCollection @Builder.Default private Set<String> tags = new HashSet<>();
 
     // required field
     @Enumerated(EnumType.STRING)

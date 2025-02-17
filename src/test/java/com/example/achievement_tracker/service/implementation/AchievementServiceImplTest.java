@@ -25,10 +25,10 @@ import com.example.achievement_tracker.persistence.model.StatusEnum;
 import com.example.achievement_tracker.persistence.repository.AchievementRepository;
 import jakarta.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -61,7 +61,7 @@ public class AchievementServiceImplTest {
         String description = "Test Description";
         LocalDate dateStarted = LocalDate.now();
         LocalDate dateCompleted = LocalDate.now();
-        List<String> tags = Arrays.asList("tag1", "tag2");
+        Set<String> tags = Set.of("tagA", "tagB");
         StatusEnum status = StatusEnum.COMPLETED;
 
         achievementDTO =
