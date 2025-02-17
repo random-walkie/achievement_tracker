@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Achievements</title>
 
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -14,12 +15,14 @@
 
     <!-- D3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-cloud@1.2.5/build/d3.layout.cloud.js"></script>
 
 </head>
 <body>
 
 <div class="container">
-    <h2 class="mb-4">Achievements</h2>
+    <h1 class="mt-5">Achievements Tracker</h1>
+    <h2 class="mb-4">Achievements Table</h2>
 
     <!-- Filter Section -->
     <div class="row mb-3">
@@ -70,10 +73,32 @@
         </table>
     </div>
 
+    <!-- Add Analytics header -->
+    <h2 class="mb-4">Analytics</h2>
+
     <!-- Gantt Chart for Achievement Timeline -->
-    <div id="progressTimeline">
-        <h2 class="mb-4">Progress Timeline</h2>
+    <div class="container mt-5">
+        <h3>Achievement Timeline</h3>
+        <div id="progressTimeline">
+        </div>
     </div>
+
+    <div class="container mt-5">
+        <h3>Status Distribution</h3>
+        <div id="statusDistributionChart"></div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>Tags Cloud</h3>
+        <div id="tagCloud"></div>
+        <div id="noTagsMessage" style="display: none;">No tags found</div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>Time to Completion</h3>
+        <div id="timeToCompletionChart"></div>
+    </div>
+
 
 </div>
 
@@ -83,6 +108,13 @@
 <script src="/js/achievements_view.js"></script>
 
 <!-- D3.js Scripts -->
+<!-- Gantt Chart -->
 <script src="/js/gantt_chart.js"> </script>
+<!-- Status Distribution Chart -->
+<script src="/js/status_distribution_chart.js"> </script>
+<!-- Tag Distribution Chart -->
+<script src="/js/tag_cloud.js"> </script>
+<!-- Time to Completion Chart -->
+<script src="/js/time_to_completion_histogram.js"> </script>
 </body>
 </html>
