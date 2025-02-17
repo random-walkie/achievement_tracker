@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Achievements</title>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Import main css style-->
+    <link href="/css/styles.css">
+
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-cloud@1.2.5/build/d3.layout.cloud.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mt-5">Achievements Tracker</h1>
+    <h2 class="mb-4">Achievements Table</h2>
+
+    <!-- Filter Section -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by title...">
+        </div>
+        <div class="col-md-4">
+            <select id="statusFilter" class="form-select">
+                <option value="">All Statuses</option>
+                <option value="TODO">TODO</option>
+                <option value="IN_PROGRESS">IN_PROGRESS</option>
+                <option value="COMPLETED">COMPLETED</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Achievements Table -->
+    <div class="table-responsive table-container">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th onclick="sortTable(0)">Title</th>
+                <th> Description</th>
+                <th onclick="sortTable(2)">Date Started</th>
+                <th onclick="sortTable(3)">Date Completed</th>
+                <th>Status</th>
+                <th>Tags</th>
+            </tr>
+            </thead>
+            <tbody id="achievementsTable">
+            <tr th:if="${achievements.isEmpty()}">
+                <td colspan="6" class="text-center text-muted">No achievements found</td>
+            </tr>
+            <tr th:each="achievement : ${achievements}" th:data-status="${achievement.status}">
+                <td th:text="${achievement.title}"></td>
+                <td th:text="${achievement.description}"></td>
+                <td th:text="${achievement.dateStarted}"></td>
+                <td th:text="${achievement.dateCompleted}"></td>
+                <td th:text="${achievement.status}"
+                    th:class="${achievement.status == 'COMPLETED' ? 'text-success' :
+                                      (achievement.status == 'IN_PROGRESS' ? 'text-warning' : 'text-danger')}">
+                </td>
+                <td>
+                    <span th:each="tag : ${achievement.tags}" class="badge bg-info me-1" th:text="${tag}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Analytics header -->
+    <h2 class="mb-4">Analytics</h2>
+
+    <!-- Gantt Chart for Achievement Timeline -->
+    <div class="container mt-5">
+        <h3>Achievement Timeline</h3>
+        <div id="progressTimeline">
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>Status Distribution</h3>
+        <div id="statusDistributionChart"></div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>Tags Cloud</h3>
+        <div id="tagCloud"></div>
+        <div id="noTagsMessage" style="display: none;">No tags found</div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>Time to Completion</h3>
+        <div id="timeToCompletionChart"></div>
+    </div>
+
+
+</div>
+
+
+
+<!-- Bootstrap & Script for Sorting & Filtering -->
+<script src="/js/achievements_view.js"></script>
+
+<!-- D3.js Scripts -->
+<!-- Gantt Chart -->
+<script src="/js/gantt_chart.js"> </script>
+<!-- Status Distribution Chart -->
+<script src="/js/status_distribution_chart.js"> </script>
+<!-- Tag Distribution Chart -->
+<script src="/js/tag_cloud.js"> </script>
+<!-- Time to Completion Chart -->
+<script src="/js/time_to_completion_histogram.js"> </script>
+</body>
+</html>

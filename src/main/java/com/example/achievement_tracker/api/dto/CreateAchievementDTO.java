@@ -20,7 +20,7 @@ import com.example.achievement_tracker.validation.ValueOfEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 import lombok.Builder;
 
 @Builder
@@ -29,7 +29,7 @@ public record CreateAchievementDTO(
         String description,
         LocalDate dateStarted,
         LocalDate dateCompleted,
-        List<String> tags,
+        Set<String> tags,
         @ValueOfEnum(
                         enumClass = StatusEnum.class,
                         message = "Must be any of TODO, IN_PROGRESS, or COMPLETED")

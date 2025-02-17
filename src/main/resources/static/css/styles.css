@@ -1,0 +1,21 @@
+body {
+    padding: 20px;
+}
+
+
+th {
+    cursor: pointer;
+}
+
+/* Status Colors */
+.text-success {
+    color: green !important;
+}
+
+.text-warning {
+    color: orange !important;
+}
+
+.text-danger {
+    color: red !important;
+}

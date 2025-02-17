@@ -21,17 +21,17 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 import lombok.Builder;
 
 @Builder
 public record UpdateAchievementDTO(
         @NotNull Long id,
-        @NotBlank @Size(max = 50) String title,
+        @Size(max = 50) String title,
         String description,
         LocalDate dateStarted,
         LocalDate dateCompleted,
-        List<String> tags,
+        Set<String> tags,
         @ValueOfEnum(
                         enumClass = StatusEnum.class,
                         message = "Must be any of TODO, IN_PROGRESS, or COMPLETED")

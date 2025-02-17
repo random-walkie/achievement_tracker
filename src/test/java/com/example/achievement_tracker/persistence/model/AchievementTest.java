@@ -121,8 +121,8 @@ public class AchievementTest {
     @Test
     @DisplayName(
             "Given `tags` are not provided, when initializing an achievement, then it should"
-                    + " default to an empty list.")
+                    + " default to empty set.")
     void checkDefaultValueForTagsField() {
-        assertTrue(achievement.getTags().isEmpty(), "Tags list should be empty by default.");
+        assertTrue(achievement.getTags().isEmpty());
     }
 }
