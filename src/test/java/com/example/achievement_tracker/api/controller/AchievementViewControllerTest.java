@@ -71,11 +71,11 @@ class AchievementViewControllerTest {
         mockMvc.perform(get("/achievements"))
                 .andExpect(status().isOk()) // Ensure response is 200
                 .andExpect(view().name("achievements")) // Ensure correct view is returned
-                .andExpect(model().attributeExists("achievements")) // Ensure model contains attribute
+                .andExpect(
+                        model().attributeExists("achievements")) // Ensure model contains attribute
                 .andExpect(model().attribute("achievements", hasSize(1))) // Expect list of size 1
                 .andExpect(content().string(containsString(title))) // Expect title in response
                 .andExpect(content().string(containsString(status))); // Expect status in response
-
     }
 
     @Test
@@ -90,8 +90,9 @@ class AchievementViewControllerTest {
         mockMvc.perform(get("/achievements"))
                 .andExpect(status().isOk()) // Ensure response is 200
                 .andExpect(view().name("achievements")) // Ensure correct view is returned
-                .andExpect(model().attributeExists("achievements")) // Ensure model contains attribute
+                .andExpect(
+                        model().attributeExists("achievements")) // Ensure model contains attribute
                 .andExpect(model().attribute("achievements", hasSize(0))) // Expect empty list
                 .andExpect(content().string(containsString("No achievements found")));
-        }
+    }
 }
