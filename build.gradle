@@ -35,6 +35,7 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok:1.18.36'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools:3.4.2'
 }
 
 spotless {
