@@ -36,4 +36,7 @@ out/
 ### VS Code ###
 .vscode/
 
+# Ignore local data initialization
+src/main/resources/data.sql
+
 tmp
