@@ -26,16 +26,16 @@ flowchart TD
     User(["You!"])
     
     subgraph AchievementTracker["Achievement Tracker"]
-        Browser["Web Browser\nShows the UI and cool\nD3.js visualisations"]
+        Browser["Web Browser<br>Shows the UI and cool<br>D3.js visualisations"]
         
         subgraph SpringBootApp["The Spring Boot App"]
-            WebPages["Web Pages\nWhat you see when browsing\nthe application"]
-            API["REST API\nHandles data for\nthe visualisations"]
-            Business["Business Logic\nMakes sure everything\nworks properly"]
-            DataStuff["Data Access\nTalks to the database"]
+            WebPages["Web Pages<br>What you see when browsing<br>the application"]
+            API["REST API<br>Handles data for<br>the visualisations"]
+            Business["Business Logic<br>Makes sure everything<br>works properly"]
+            DataStuff["Data Access<br>Talks to the database"]
         end
         
-        DB[(Database\nWhere everything's stored)]
+        DB[(Database<br>Where everything's stored)]
     end
     
     User -->|"Uses"| Browser
@@ -44,7 +44,7 @@ flowchart TD
     WebPages -->|"Gets info from"| Business
     API -->|"Processes requests through"| Business
     Business -->|"Saves and loads data via"| DataStuff
-    DataStuff -->|"Stores and\nretrieves data"| DB
+    DataStuff -->|"Stores and<br>retrieves data"| DB
 
     style User fill:#f9f9f9,stroke:#333,stroke-width:2px
     style Browser fill:#d5e8d4,stroke:#82b366,stroke-width:2px
