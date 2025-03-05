@@ -24,20 +24,20 @@ Here's a look at how the pieces fit together:
 ```mermaid
 flowchart TD
     User(["You!"])
-    
+
     subgraph AchievementTracker["Achievement Tracker"]
-        Browser["Web Browser<br>Shows the UI and cool<br>D3.js visualisations"]
-        
+        Browser["Web Browser<br>Shows the UI and cool<br>D3.js visualizations"]
+
         subgraph SpringBootApp["The Spring Boot App"]
             WebPages["Web Pages<br>What you see when browsing<br>the application"]
-            API["REST API<br>Handles data for<br>the visualisations"]
+            API["REST API<br>Handles data for<br>the visualizations"]
             Business["Business Logic<br>Makes sure everything<br>works properly"]
             DataStuff["Data Access<br>Talks to the database"]
         end
-        
+
         DB[(Database<br>Where everything's stored)]
     end
-    
+
     User -->|"Uses"| Browser
     Browser -->|"Loads pages from"| WebPages
     Browser -->|"Gets data from"| API
@@ -46,14 +46,25 @@ flowchart TD
     Business -->|"Saves and loads data via"| DataStuff
     DataStuff -->|"Stores and<br>retrieves data"| DB
 
-    style User fill:#E8F8F5,stroke:#1A5276,stroke-width:2px
-    style Browser fill:#D1F2EB,stroke:#148F77,stroke-width:2px
-    style WebPages fill:#D6EAF8,stroke:#2874A6,stroke-width:2px
-    style API fill:#D6EAF8,stroke:#2874A6,stroke-width:2px
-    style Business fill:#D6EAF8,stroke:#2874A6,stroke-width:2px
-    style DataStuff fill:#D6EAF8,stroke:#2874A6,stroke-width:2px
-    style DB fill:#FAE5D3,stroke:#BA4A00,stroke-width:2px
-    style SpringBootApp fill:#E8DAEF,stroke:#6C3483,stroke-width:1px,stroke-dasharray: 5 5
+%% Style all components with colorblind-friendly colors
+    style User fill:#E8F8F5,stroke:#1A5276,stroke-width:2px,color:#1A5276
+    style Browser fill:#D1F2EB,stroke:#148F77,stroke-width:2px,color:#0E6251
+    style WebPages fill:#D6EAF8,stroke:#2874A6,stroke-width:2px,color:#1B4F72
+    style API fill:#D6EAF8,stroke:#2874A6,stroke-width:2px,color:#1B4F72
+    style Business fill:#D6EAF8,stroke:#2874A6,stroke-width:2px,color:#1B4F72
+    style DataStuff fill:#D6EAF8,stroke:#2874A6,stroke-width:2px,color:#1B4F72
+    style DB fill:#FAE5D3,stroke:#BA4A00,stroke-width:2px,color:#A04000
+    style SpringBootApp fill:#E8DAEF,stroke:#6C3483,stroke-width:1px,stroke-dasharray: 5 5,color:#6C3483
+    style AchievementTracker fill:#FEF9E7,stroke:#B7950B,stroke-width:1px,color:#7D6608
+
+%% Make all linkStyle colors visible and colorblind-friendly
+    linkStyle 0 stroke:#1A5276,stroke-width:2px
+    linkStyle 1 stroke:#148F77,stroke-width:2px
+    linkStyle 2 stroke:#148F77,stroke-width:2px
+    linkStyle 3 stroke:#2874A6,stroke-width:2px
+    linkStyle 4 stroke:#2874A6,stroke-width:2px
+    linkStyle 5 stroke:#2874A6,stroke-width:2px
+    linkStyle 6 stroke:#BA4A00,stroke-width:2px
 ```
 
 ## How It Works
