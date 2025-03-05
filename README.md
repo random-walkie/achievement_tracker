@@ -46,14 +46,14 @@ flowchart TD
     Business -->|"Saves and loads data via"| DataStuff
     DataStuff -->|"Stores and<br>retrieves data"| DB
 
-    style User fill:#f9f9f9,stroke:#333,stroke-width:2px
-    style Browser fill:#d5e8d4,stroke:#82b366,stroke-width:2px
-    style WebPages fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px
-    style API fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px
-    style Business fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px
-    style DataStuff fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px
-    style DB fill:#ffe6cc,stroke:#d79b00,stroke-width:2px
-    style SpringBootApp fill:#f5f5f5,stroke:#666666,stroke-width:1px,stroke-dasharray: 5 5
+    style User fill:#E8F8F5,stroke:#1A5276,stroke-width:2px
+    style Browser fill:#D1F2EB,stroke:#148F77,stroke-width:2px
+    style WebPages fill:#D6EAF8,stroke:#2874A6,stroke-width:2px
+    style API fill:#D6EAF8,stroke:#2874A6,stroke-width:2px
+    style Business fill:#D6EAF8,stroke:#2874A6,stroke-width:2px
+    style DataStuff fill:#D6EAF8,stroke:#2874A6,stroke-width:2px
+    style DB fill:#FAE5D3,stroke:#BA4A00,stroke-width:2px
+    style SpringBootApp fill:#E8DAEF,stroke:#6C3483,stroke-width:1px,stroke-dasharray: 5 5
 ```
 
 ## How It Works
