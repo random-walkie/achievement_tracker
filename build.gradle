@@ -66,4 +66,7 @@ spotless {
 }
 tasks.named('test') {
 	useJUnitPlatform()
+
+	// Set the active profile for unit tests
+	systemProperty 'spring.profiles.active', 'unit-test'
 }
