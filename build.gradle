@@ -36,6 +36,10 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools:3.4.2'
+
+	// Backblaze
+	implementation 'com.backblaze.b2:b2-sdk-core:6.1.0'
+	implementation 'com.backblaze.b2:b2-sdk-httpclient:6.1.0'
 }
 
 spotless {
