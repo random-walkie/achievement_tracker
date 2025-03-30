@@ -1,0 +1,53 @@
+services:
+  # PostgreSQL database for testing
+  postgres-test:
+    image: postgres:14
+    container_name: achievement-tracker-test-db
+    env_file:
+      - .env.test
+    environment:
+      POSTGRES_DB: achievement_tracker_test
+      POSTGRES_USER: ${TEST_DB_USERNAME}
+      POSTGRES_PASSWORD: ${TEST_DB_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-test-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${TEST_DB_USERNAME} -d achievement_tracker_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - test-network
+
+  # Spring Boot application - test environment
+  app-test:
+    build: .
+    container_name: achievement-tracker-test-app
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+    environment:
+      - SPRING_PROFILES_ACTIVE=test
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-test:5432/achievement_tracker_test
+      - SPRING_DATASOURCE_USERNAME=${TEST_DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${TEST_DB_PASSWORD}
+      - TEST_B2_APPLICATION_KEY_ID=${TEST_B2_APPLICATION_KEY_ID}
+      - TEST_B2_APPLICATION_KEY=${TEST_B2_APPLICATION_KEY}
+      - TEST_B2_BUCKET_NAME=${TEST_B2_BUCKET_NAME}
+      - TEST_B2_MASTER_URL=${TEST_B2_MASTER_URL}
+    ports:
+      - "8080:8080"
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
+
+volumes:
+  postgres-test-data:
+    name: achievement-tracker-test-data

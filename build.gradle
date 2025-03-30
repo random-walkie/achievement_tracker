@@ -26,7 +26,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.4.2'
 	implementation 'org.mapstruct:mapstruct:1.6.3'
 	runtimeOnly 'com.h2database:h2:2.3.232'
-	runtimeOnly 'org.postgresql:postgresql:42.3.1'
+	runtimeOnly 'org.postgresql:postgresql:42.6.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.4.2'
 	testImplementation 'org.mockito:mockito-core:5.15.2'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.8.2'
@@ -40,12 +40,13 @@ dependencies {
 	// Backblaze
 	implementation 'com.backblaze.b2:b2-sdk-core:6.1.0'
 	implementation 'com.backblaze.b2:b2-sdk-httpclient:6.1.0'
+
+	// env
+	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+	implementation 'me.paulschwarz:spring-dotenv:4.0.0'
 }
 
 spotless {
-
-	// optional: limit format enforcement to just the files changed by this feature branch
-	ratchetFrom 'origin/main'
 
 	format 'misc', {
 		// define the files to apply `misc` to

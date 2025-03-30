@@ -39,6 +39,8 @@ out/
 # Ignore local data initialization
 src/main/resources/data.sql
 
-tmp
-
+# Environment variables
+.env.test
+.env.prod
 .env
+.env.local
